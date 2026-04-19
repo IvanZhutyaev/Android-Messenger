@@ -33,4 +33,23 @@ public interface APIService {
 
     @GET("api/v1/chats/{id}")
     Call<ChatsResponce> getChat(@Path("id") int chatId);
+
+    @GET("api/v1/chats/{id}/members")
+    Call<List<UserResponse>> getChatMembers(@Path("id") iint chatId);
+
+    @POST("api/v1/chats/{id}/members/{user_id}")
+    Call<Void> addMember(Path("id") int chatId,
+                        @Path("user_id") int userId
+    );
+
+    @DELETE("api/v1/chats/{id}/members/{user_id}")
+    Call<Void> removeMember(Path("id") int chatId,
+                            @Path("user_id") int userId
+    );
+
+    @GET("api/v1/chats/{id}/messages")
+    Call<List<MessageResponce>> getMessages(@Path("id") int chatId);
+
+    @POST("api/v1/chats/{id}/messages")
+    Call<MessageResponce> sendMessage(@Path("id") int chatId, @Body MessageCreateRequest body);
 }
