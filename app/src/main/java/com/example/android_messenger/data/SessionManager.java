@@ -13,7 +13,7 @@ public class SessionManager {
         this.prefs = prefs;
     }
 
-    public void sevUser(int userId, String login){
+    public void saveUser(int userId, String login){
         prefs.edit()
                 .putInt(KEY_USER_ID, userId)
                 .putString(KEY_LOGIN, login)
