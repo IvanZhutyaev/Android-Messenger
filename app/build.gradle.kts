@@ -3,15 +3,13 @@ plugins {
 }
 
 android {
-    namespace = "com.example.android_messenger"
+    namespace = "com.example.messenger"
     compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
+        version = release(36)
     }
 
     defaultConfig {
-        applicationId = "com.example.android_messenger"
+        applicationId = "com.example.messenger"
         minSdk = 33
         targetSdk = 36
         versionCode = 1
@@ -28,6 +26,9 @@ android {
                 "proguard-rules.pro"
             )
         }
+    }
+    buildFeatures {
+        viewBinding=true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
