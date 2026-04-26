@@ -8,7 +8,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.messenger.R;
+import com.example.android_messenger.R;
+
 
 public class ChatListActivity extends AppCompatActivity {
 
