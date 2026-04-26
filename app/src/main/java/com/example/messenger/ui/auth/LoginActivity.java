@@ -48,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
                     UserResponse user = response.body();
                     session.saveUser(user.getUser_id(), user.getLogin());
                     startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                    finish();
                 }
                 else {
                     Toast.makeText(LoginActivity.this, "ОШИБКА ВХОДА", Toast.LENGTH_LONG).show();
