@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
                     finish();
                 }
                 else {
-                    Toast.makeText(LoginActivity.this, "ОШИБКА ВХОДА", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Неверный логин или пароль", Toast.LENGTH_LONG).show();
                 }
             }
 
