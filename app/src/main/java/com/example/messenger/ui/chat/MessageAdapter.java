@@ -1,11 +1,14 @@
 package com.example.messenger.ui.chat;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.messenger.databinding.ItemMessageInBinding;
+import com.example.messenger.databinding.ItemMessageOutBinding;
 import com.example.messenger.model.MessageResponse;
 
 import java.util.List;
@@ -28,7 +31,10 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        if(viewType==TYPE_OUT){
+            return new OutVH(ItemMessageOutBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false));
+        }
+        return new InVH(ItemMessageInBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false));
     }
 
     @Override
@@ -42,13 +48,17 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     static class OutVH extends RecyclerView.ViewHolder{
-        public OutVH(@NonNull View itemView) {
-            super(itemView);
+        ItemMessageOutBinding binding;
+        public OutVH(ItemMessageOutBinding binding) {
+            super(binding.getRoot());
+            this.binding=binding;
         }
     }
     static class InVH extends RecyclerView.ViewHolder{
-        public InVH(@NonNull View itemView) {
-            super(itemView);
+        ItemMessageInBinding binding;
+        public InVH(ItemMessageInBinding binding ){
+            super(binding.getRoot());
+            this.binding=binding;
         }
     }
 }
