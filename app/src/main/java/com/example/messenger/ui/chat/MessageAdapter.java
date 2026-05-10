@@ -20,7 +20,10 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         this.myUserId = myUserId;
     }
 
-
+    @Override
+    public int getItemViewType(int position) {
+        return items.get(position).getSender_id()==myUserId?TYPE_OUT:TYPE_IN;
+    }
 
     @NonNull
     @Override
