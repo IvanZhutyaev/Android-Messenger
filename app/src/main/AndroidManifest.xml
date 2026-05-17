@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Messenger"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.chat.AddMemberActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.chat.ChatCreateActivity"
             android:exported="false" />
         <activity
@@ -40,7 +43,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>
