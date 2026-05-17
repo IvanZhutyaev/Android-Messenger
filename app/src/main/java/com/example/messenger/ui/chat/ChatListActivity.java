@@ -34,6 +34,10 @@ public class ChatListActivity extends AppCompatActivity {
 
         binding.recyclerChats.setLayoutManager(new LinearLayoutManager(this));
         loadChats();
+        binding.btnCreateChat.setOnClickListener(v->{
+            Intent intent=new Intent(this,ChatCreateActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void loadChats() {
