@@ -24,7 +24,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         this.listener = listener;
         this.users = users;
     }
-
+    public void updateList(List<UserResponse> newUsers){
+        users=newUsers;
+        notifyDataSetChanged();
+    }
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
