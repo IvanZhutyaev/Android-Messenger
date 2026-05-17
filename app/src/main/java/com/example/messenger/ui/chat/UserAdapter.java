@@ -7,8 +7,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.messenger.model.UserResponse;
+
+import java.util.List;
+
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder>
 {
+    public interface OnUserClickListener{
+        void onUserClick(UserResponse user);
+
+    }
+    private List<UserResponse> users;
+    private OnUserClickListener listener;
+
+    public UserAdapter(OnUserClickListener listener, List<UserResponse> users) {
+        this.listener = listener;
+        this.users = users;
+    }
+
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
