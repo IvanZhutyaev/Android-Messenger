@@ -17,6 +17,7 @@ import com.example.messenger.model.UserLoginRequest;
 import com.example.messenger.model.UserResponse;
 import com.example.messenger.network.ApiClient;
 import com.example.messenger.network.ApiService;
+import com.example.messenger.ui.chat.ChatListActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,10 +45,13 @@ public class LoginActivity extends AppCompatActivity {
         api.login(new UserLoginRequest(login, password)).enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
-                if(response.isSuccessful()&& response.body()!=null){
+                if(response.isSuccessful() && response.body() != null){
                     UserResponse user = response.body();
                     session.saveUser(user.getUser_id(), user.getLogin());
-                    startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+
+                    Intent intent = new Intent(LoginActivity.this, ChatListActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
                     finish();
                 }
                 else {

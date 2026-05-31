@@ -16,6 +16,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiService {
 
@@ -35,7 +36,7 @@ public interface ApiService {
     Call<ChatsResponse> createChat(@Body ChatCreateRequest body);
 
     @GET("api/v1/chats")
-    Call<List<ChatsResponse>> getChats();
+    Call<List<ChatsResponse>> getChats(@Query("user_id") int userId);
 
     @GET("api/v1/chats/{id}")
     Call<ChatsResponse> getChat(@Path("id") int chatId);

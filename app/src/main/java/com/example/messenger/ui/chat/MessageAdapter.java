@@ -40,13 +40,12 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         MessageResponse msg = items.get(position);
-        if(holder instanceof OutVH out){
-            out.binding.txtMessage.setText(msg.getMessage_id());
+        String text = msg.getMessage_text() != null ? msg.getMessage_text() : "";
+        if (holder instanceof OutVH out) {
+            out.binding.txtMessage.setText(text);
+        } else if (holder instanceof InVH in) {
+            in.binding.txtMessage.setText(text);
         }
-        else if(holder instanceof InVH in){
-            in.binding.txtMessage.setText(msg.getMessage_id());
-        }
-
     }
 
     @Override

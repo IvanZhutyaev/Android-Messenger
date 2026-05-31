@@ -4,15 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.messenger.R;
+import com.example.messenger.data.SessionManager;
 import com.example.messenger.databinding.ActivityChatListBinding;
 import com.example.messenger.model.ChatsResponse;
 import com.example.messenger.network.ApiClient;
 import com.example.messenger.network.ApiService;
+import com.example.messenger.ui.auth.LoginActivity;
 
 import java.util.List;
 
@@ -23,6 +23,8 @@ import retrofit2.Response;
 public class ChatListActivity extends AppCompatActivity {
     private ActivityChatListBinding binding;
     private ApiService api;
+    private SessionManager session;
+    private int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,28 +32,45 @@ public class ChatListActivity extends AppCompatActivity {
         binding = ActivityChatListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        api= ApiClient.getClient().create(ApiService.class);
+        api = ApiClient.getClient().create(ApiService.class);
+        session = new SessionManager(this);
+        userId = session.getUserId();
+
+        if (!session.isLoggedIn()) {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+            return;
+        }
 
         binding.recyclerChats.setLayoutManager(new LinearLayoutManager(this));
         loadChats();
-        binding.btnCreateChat.setOnClickListener(v->{
-            Intent intent=new Intent(this,ChatCreateActivity.class);
+
+        binding.btnCreateChat.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ChatCreateActivity.class);
             startActivity(intent);
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (session.isLoggedIn()) {
+            loadChats();
+        }
+    }
+
     private void loadChats() {
-        api.getChats().enqueue(new Callback<List<ChatsResponse>>() {
+        api.getChats(userId).enqueue(new Callback<List<ChatsResponse>>() {
             @Override
             public void onResponse(Call<List<ChatsResponse>> call, Response<List<ChatsResponse>> response) {
-                if(response.isSuccessful() && response.body()!=null){
+                if (response.isSuccessful() && response.body() != null) {
                     ChatAdapter adapter = new ChatAdapter(response.body(), chat -> {
                         Intent intent = new Intent(ChatListActivity.this, ChatMessagesActivity.class);
                         intent.putExtra("chat", chat);
                         startActivity(intent);
                     });
                     binding.recyclerChats.setAdapter(adapter);
-                } else{
+                } else {
                     Toast.makeText(ChatListActivity.this, "Не удалось загрузить чаты", Toast.LENGTH_SHORT).show();
                 }
             }

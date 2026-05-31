@@ -33,7 +33,7 @@ public class SplashActivity extends AppCompatActivity {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.splash_anim);
         logo.startAnimation(animation);
         SessionManager session = new SessionManager(this);
-
+        session.clear();
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
                     if (session.isLoggedIn())
                         startActivity(new Intent(this, MainActivity.class));
