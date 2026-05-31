@@ -23,6 +23,7 @@
         <EditText
             android:id="@+id/edtMessage"
             android:layout_width="0dp"
+            android:textColor="@color/white"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
         <Button
