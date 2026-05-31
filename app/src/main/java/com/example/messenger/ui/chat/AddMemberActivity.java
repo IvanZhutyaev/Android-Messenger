@@ -1,5 +1,6 @@
 package com.example.messenger.ui.chat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -48,6 +49,11 @@ public class AddMemberActivity extends AppCompatActivity {
 
         initSearch();
         loadUsers();
+
+        binding.btnBackToChats.setOnClickListener(v->{
+            startActivity(new Intent(this, ChatListActivity.class));
+            finish();
+        });
     }
 
     private void loadUsers() {
