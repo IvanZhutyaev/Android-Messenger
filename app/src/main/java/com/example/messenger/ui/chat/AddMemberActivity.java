@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.messenger.R;
+import com.example.messenger.databinding.ActivityAddMemberBinding;
 import com.example.messenger.model.ChatsResponse;
 import com.example.messenger.model.UserResponse;
 import com.example.messenger.network.ApiClient;
@@ -23,31 +24,27 @@ import retrofit2.Response;
 
 public class AddMemberActivity extends AppCompatActivity {
 
-    private androidx.recyclerview.widget.RecyclerView recyclerUsers;
-    private android.widget.EditText edtSearch;
-
     private ApiService apiService;
     private UserAdapter adapter;
 
     private ChatsResponse chat;
     private List<UserResponse> allUsers = new ArrayList<>();
 
+    ActivityAddMemberBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_member);
+        binding=ActivityAddMemberBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         chat = getIntent().getParcelableExtra("chat", ChatsResponse.class);
 
-        recyclerUsers = findViewById(R.id.recyclerUsers);
-        edtSearch = findViewById(R.id.edtSearch);
-
         apiService = ApiClient.getClient().create(ApiService.class);
 
-        recyclerUsers.setLayoutManager(new LinearLayoutManager(this));
+        binding.recyclerUsers.setLayoutManager(new LinearLayoutManager(this));
 
         adapter = new UserAdapter(new ArrayList<>(), user -> addUserToChat(user));
-        recyclerUsers.setAdapter(adapter);
+        binding.recyclerUsers.setAdapter(adapter);
 
         initSearch();
         loadUsers();
@@ -78,7 +75,7 @@ public class AddMemberActivity extends AppCompatActivity {
     }
 
     private void initSearch() {
-        edtSearch.addTextChangedListener(new TextWatcher() {
+        binding.edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
