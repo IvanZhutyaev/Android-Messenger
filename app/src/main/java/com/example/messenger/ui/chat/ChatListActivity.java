@@ -43,7 +43,7 @@ public class ChatListActivity extends AppCompatActivity {
         }
 
         binding.recyclerChats.setLayoutManager(new LinearLayoutManager(this));
-        loadChats();
+        loadChats(userId);
 
         binding.btnCreateChat.setOnClickListener(v -> {
             Intent intent = new Intent(this, ChatCreateActivity.class);
@@ -54,12 +54,10 @@ public class ChatListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (session.isLoggedIn()) {
-            loadChats();
-        }
+        loadChats(userId);
     }
 
-    private void loadChats() {
+    private void loadChats(int userId) {
         api.getChats(userId).enqueue(new Callback<List<ChatsResponse>>() {
             @Override
             public void onResponse(Call<List<ChatsResponse>> call, Response<List<ChatsResponse>> response) {
